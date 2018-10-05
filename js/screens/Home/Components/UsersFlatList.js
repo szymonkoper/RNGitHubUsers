@@ -3,8 +3,15 @@ import { FlatList } from 'react-native';
 import UserListItem from './UserListItem';
 
 export default class UsersFlatList extends React.PureComponent {
+  onPress = login => console.log(`Pressed item: ${login}`);
+
   renderItem = ({ item }) => (
-    <UserListItem login={item.login} name={item.name} totalRepos={item.totalRepos} />
+    <UserListItem
+      login={item.login}
+      name={item.name}
+      totalRepos={item.totalRepos}
+      onPress={this.onPress}
+    />
   );
 
   keyExtractor = item => item.login;
