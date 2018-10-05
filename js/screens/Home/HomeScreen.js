@@ -5,15 +5,23 @@ import gql from 'graphql-tag';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
 
-function HomeScreen({ data: { loading, search } }) {
-  if (loading) {
-    return <Text>loading</Text>;
+class HomeScreen extends React.Component {
+  onUserPressed = (login) => {
+    const { props } = this;
+    props.navigation.navigate('UserDetail', { login });
   }
 
-  const repositoryOwners = search.nodes
-    .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+  render = () => {
+    const { data } = this.props;
+    if (data.loading) {
+      return <Text>loading</Text>;
+    }
 
-  return <UsersFlatList data={repositoryOwners} />;
+    const repositoryOwners = data.search.nodes
+      .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+
+    return <UsersFlatList data={repositoryOwners} onUserPressed={this.onUserPressed} />;
+  }
 }
 
 const GET_USERS = gql`

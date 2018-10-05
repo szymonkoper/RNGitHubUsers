@@ -5,6 +5,7 @@ import {
   ApolloClient, ApolloLink, InMemoryCache, HttpLink,
 } from 'apollo-boost';
 import HomeScreen from './screens/Home/HomeScreen';
+import UserDetailScreen from './screens/UserDetail/UserDetailScreen';
 import { token } from '../config';
 
 const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
@@ -32,7 +33,18 @@ const apolloClient = new ApolloClient({
 const StackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: 'GitHub Users',
+    }),
   },
+  UserDetail: {
+    screen: UserDetailScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: "User's repositories", // TODO: Use something like `${navigation.state.params.name}'s Profile'`
+    }),
+  },
+}, {
+  initialRouteName: 'Home',
 });
 
 const App = () => (

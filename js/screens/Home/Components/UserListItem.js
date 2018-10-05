@@ -7,7 +7,7 @@ export default class UserListItem extends React.PureComponent {
     props.onPress(props.login);
   }
 
-  render() {
+  render = () => {
     const { props } = this;
     return (
       <TouchableOpacity onPress={this.onPress}>
