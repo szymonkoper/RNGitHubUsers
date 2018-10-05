@@ -1,27 +1,20 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import User from '../../../Models/User';
 import UserListItem from './UserListItem';
 
-const MOCK_USERS_DATA = [
-  new User('sakydpozrux', 'Szymon Koper', '??', 23),
-  new User('pangrzyb', 'Grzyb Grzybowski', '??', 5),
-  new User('jan_niejadek', 'J Niejadek', '??', 1),
-];
-
 export default class UsersFlatList extends React.PureComponent {
-  renderItem = ({ item }) => {
-    console.log(item);
-    return <UserListItem login={item.login} />;
-  }
+  renderItem = ({ item }) => (
+    <UserListItem login={item.login} name={item.name} totalRepos={item.totalRepos} />
+  );
 
-  keyExtractor = (item, index) => item.login;
+  keyExtractor = item => item.login;
 
   render() {
-    console.log(MOCK_USERS_DATA);
+    const { props } = this;
+
     return (
       <FlatList
-        data={MOCK_USERS_DATA}
+        data={props.data}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
       />

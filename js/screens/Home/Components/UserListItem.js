@@ -5,7 +5,13 @@ export default class UserListItem extends React.PureComponent {
   render() {
     const { props } = this;
     return (
-      <Text>{props.login}</Text>
+      <>
+        <Text>- - - - -</Text>
+        <Text>{props.login}</Text>
+        <Text>{props.name}</Text>
+        <Text>{props.totalRepos}</Text>
+        <Text>- - - - -</Text>
+      </>
     );
   }
 }

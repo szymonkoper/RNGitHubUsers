@@ -21,7 +21,11 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    fragmentMatcher: { match: ({ id }, typeCond, context) => !!context.store.get(id) },
+    dataIdFromObject: obj => obj.id,
+    addTypename: false,
+  }),
 });
 
 
