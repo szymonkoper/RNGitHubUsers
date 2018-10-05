@@ -17,9 +17,9 @@ function HomeScreen({ data: { loading, search } }) {
 }
 
 const GET_USERS = gql`
-query {
-  search(query:"google", type:USER, last:10) {
-		nodes {
+query ($name: String!) {
+  search(query: $name, type: USER, last: 10) {
+    nodes {
 			... on RepositoryOwner {
 				login
 				avatarUrl
@@ -33,11 +33,19 @@ query {
 			... on Organization {
 				name
 			}
-		}
-	}
+    }
+  }
 }
 `;
 
-const EnhancedHomeScreen = graphql(GET_USERS)(HomeScreen);
+const EnhancedHomeScreen = graphql(
+  GET_USERS, {
+    options: props => ({
+      variables: {
+        name: 'google',
+      },
+    }),
+  },
+)(HomeScreen);
 
 export default EnhancedHomeScreen;
