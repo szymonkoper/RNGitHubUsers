@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { name: 'google' };
+  }
+
   onUserPressed = (login) => {
     const { props } = this;
     props.navigation.navigate('UserDetail', { login });
@@ -14,39 +19,36 @@ class HomeScreen extends React.Component {
 
   onSearchText = (text) => {
     console.log(text);
+    this.setState({ name: text });
   }
 
   render = () => {
-    const { data } = this.props;
-    if (data.loading) {
-      return <Text>loading</Text>;
-    }
-
-    const repositoryOwners = data.search.nodes
-      .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+    const { name } = this.state;
 
     return (
-      <View>
-        <SearchBar
-          onChangeText={this.onSearchText}
-          // onClear={someMethod}
-          platform={Platform.OS}
-          placeholder="Type Here..."
-        />
-        <UsersFlatList data={repositoryOwners} onUserPressed={this.onUserPressed} />
-      </View>
+      <Query query={fetchUsers} variables={{ name }} skip={!name.trim()}>
+        {({ loading, error, data }) => {
+          let users = [];
+          if (data && data.search && data.search.nodes) {
+            users = data.search.nodes
+              .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+          }
+
+          return (
+            <View>
+              <SearchBar
+                onChangeText={this.onSearchText}
+                platform={Platform.OS}
+                placeholder="Type Here..."
+              />
+              {loading ? <Text>loading</Text> : null}
+              {!loading && users.length === 0 ? <Text>Found nothing :(</Text> : null}
+              {error ? <Text>{error}</Text> : null}
+              <UsersFlatList data={users} onUserPressed={this.onUserPressed} />
+            </View>
+          );
+        }}
+      </Query>
     );
-  }
+  };
 }
-
-const EnhancedHomeScreen = graphql(
-  fetchUsers, {
-    options: props => ({
-      variables: {
-        name: 'google',
-      },
-    }),
-  },
-)(HomeScreen);
-
-export default EnhancedHomeScreen;
