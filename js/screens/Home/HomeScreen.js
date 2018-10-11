@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, Text, Platform } from 'react-native';
+import { ScrollView, View, Text, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { Query } from 'react-apollo';
 import _ from 'lodash';
 import UsersFlatList from './Components/UsersFlatList';
+import FoundNothingView from './Components/FoundNothingView';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { name: 'google' };
+    this.state = { name: '' };
   }
 
   onUserPressed = (login) => {
@@ -30,6 +31,7 @@ export default class HomeScreen extends React.Component {
     return (
       <Query query={fetchUsers} variables={{ name }} skip={!name.trim()}>
         {({ loading, error, data }) => {
+
           let users = [];
           if (data && data.search && data.search.nodes) {
             users = data.search.nodes
@@ -37,17 +39,20 @@ export default class HomeScreen extends React.Component {
           }
 
           return (
-            <View>
+            <ScrollView>
               <SearchBar
+                text={name}
                 onChangeText={this.onSearchTextDebounced}
                 platform={Platform.OS}
                 placeholder="Type Here..."
               />
-              {loading ? <Text>loading</Text> : null}
-              {!loading && users.length === 0 ? <Text>Found nothing :(</Text> : null}
-              {error ? <Text>{error}</Text> : null}
+              <View>
+                {loading ? <Text>loading</Text> : null}
+                {!loading && users.length === 0 ? <FoundNothingView/> : null}
+                {error ? <Text>{error}</Text> : null}
+              </View>
               <UsersFlatList data={users} onUserPressed={this.onUserPressed} />
-            </View>
+            </ScrollView>
           );
         }}
       </Query>

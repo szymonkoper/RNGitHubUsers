@@ -18,6 +18,7 @@ export default class UserListItem extends React.PureComponent {
           title={props.login}
           subtitle={props.name}
           badge={{ value: props.totalRepos }}
+          chevron
         />
       </TouchableOpacity>
     );
