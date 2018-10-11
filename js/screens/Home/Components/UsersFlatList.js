@@ -13,6 +13,7 @@ export default class UsersFlatList extends React.PureComponent {
       login={item.login}
       name={item.name}
       totalRepos={item.totalRepos}
+      avatarUrl={item.avatarUrl}
       onPress={this.onPress}
     />
   );
