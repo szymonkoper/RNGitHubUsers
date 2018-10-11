@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import UsersFlatList from './Components/UsersFlatList';
@@ -11,6 +12,10 @@ class HomeScreen extends React.Component {
     props.navigation.navigate('UserDetail', { login });
   }
 
+  onSearchText = (text) => {
+    console.log(text);
+  }
+
   render = () => {
     const { data } = this.props;
     if (data.loading) {
@@ -20,7 +25,17 @@ class HomeScreen extends React.Component {
     const repositoryOwners = data.search.nodes
       .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
 
-    return <UsersFlatList data={repositoryOwners} onUserPressed={this.onUserPressed} />;
+    return (
+      <View>
+        <SearchBar
+          onChangeText={this.onSearchText}
+          // onClear={someMethod}
+          platform={Platform.OS}
+          placeholder="Type Here..."
+        />
+        <UsersFlatList data={repositoryOwners} onUserPressed={this.onUserPressed} />
+      </View>
+    );
   }
 }
 
