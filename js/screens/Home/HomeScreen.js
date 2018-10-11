@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, View, Text, Platform } from 'react-native';
+import { ScrollView, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { Query } from 'react-apollo';
 import _ from 'lodash';
 import UsersFlatList from './Components/UsersFlatList';
-import FoundNothingView from './Components/FoundNothingView';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
+import AdditionalInfoView from './Components/AdditionalInfoView';
 
 export default class HomeScreen extends React.PureComponent {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class HomeScreen extends React.PureComponent {
         {({ loading, error, data }) => {
 
           let users = [];
-          if (data && data.search && data.search.nodes) {
+          if (!error && data && data.search && data.search.nodes) {
             users = data.search.nodes
               .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
           }
@@ -46,11 +46,7 @@ export default class HomeScreen extends React.PureComponent {
                 platform={Platform.OS}
                 placeholder="Type Here..."
               />
-              <View>
-                {loading ? <Text>loading</Text> : null}
-                {!loading && users.length === 0 ? <FoundNothingView/> : null}
-                {error ? <Text>{error}</Text> : null}
-              </View>
+              <AdditionalInfoView loading={loading} error={error} dataLength={users.length} />
               <UsersFlatList data={users} onUserPressed={this.onUserPressed} />
             </ScrollView>
           );
