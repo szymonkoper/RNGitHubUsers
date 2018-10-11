@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { Query } from 'react-apollo';
+import _ from 'lodash';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
@@ -18,9 +19,10 @@ export default class HomeScreen extends React.Component {
   }
 
   onSearchText = (text) => {
-    console.log(text);
     this.setState({ name: text });
   }
+
+  onSearchTextDebounced = _.debounce(this.onSearchText, 500);
 
   render = () => {
     const { name } = this.state;
@@ -37,7 +39,7 @@ export default class HomeScreen extends React.Component {
           return (
             <View>
               <SearchBar
-                onChangeText={this.onSearchText}
+                onChangeText={this.onSearchTextDebounced}
                 platform={Platform.OS}
                 placeholder="Type Here..."
               />
