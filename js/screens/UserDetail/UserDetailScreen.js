@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import RepositoriesFlatList from './Components/RepositoriesFlatList';
 import Repository from '../../Models/Repository';
+import { fetchRepositories } from '../../actions/repositories';
 
 class UserDetailScreen extends React.PureComponent {
   render = () => {
@@ -21,33 +21,8 @@ class UserDetailScreen extends React.PureComponent {
   }
 }
 
-const GET_USERS = gql`
-query ($login: String!) {
-  repositoryOwner(login: $login) {
-		... on RepositoryOwner {
-			login
-			url
-			repositories(last: 100) {
-				nodes {
-					name
-					url
-					updatedAt
-					description
-				}
-			}
-		}
-		... on User {
-			name
-		}
-		... on Organization {
-			name
-		}
-  }
-}
-`;
-
 const EnhancedUserDetailScreen = graphql(
-  GET_USERS, {
+  fetchRepositories, {
     options: props => ({
       variables: {
         login: props.navigation.getParam('login', 'NO-LOGIN'),

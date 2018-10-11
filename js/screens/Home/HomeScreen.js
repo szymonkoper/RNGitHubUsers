@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
+import { fetchUsers } from '../../actions/users';
 
 class HomeScreen extends React.Component {
   onUserPressed = (login) => {
@@ -39,30 +39,8 @@ class HomeScreen extends React.Component {
   }
 }
 
-const GET_USERS = gql`
-query ($name: String!) {
-  search(query: $name, type: USER, last: 10) {
-    nodes {
-      ... on RepositoryOwner {
-        login
-        avatarUrl
-        repositories {
-          totalCount
-        }
-      }
-      ... on User {
-        name
-      }
-      ... on Organization {
-        name
-      }
-    }
-  }
-}
-`;
-
 const EnhancedHomeScreen = graphql(
-  GET_USERS, {
+  fetchUsers, {
     options: props => ({
       variables: {
         name: 'google',
