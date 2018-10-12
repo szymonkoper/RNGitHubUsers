@@ -10,7 +10,7 @@ export default class RepositoryListItem extends React.PureComponent {
         key={props.url}
         title={props.name}
         titleProps={{ numberOfLines: 1 }}
-        rightTitle={ Moment(props.updatedAt).calendar() }
+        rightTitle={Moment(props.updatedAt).calendar()}
         rightTitleProps={{ numberOfLines: 2 }}
         rightTitleStyle={{ fontSize: 12 }}
         subtitle={props.description}

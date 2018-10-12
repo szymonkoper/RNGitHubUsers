@@ -11,13 +11,13 @@ export default class AdditionalInfoView extends React.PureComponent {
     const { loading, error, dataLength } = props;
 
     if (loading) {
-      return <LoadingView style={{ padding: DEFAULT_PADDING }}/>;
+      return <LoadingView style={{ padding: DEFAULT_PADDING }} />;
     } if (error) {
-      return <ErrorView style={{ padding: DEFAULT_PADDING }}/>;
+      return <ErrorView style={{ padding: DEFAULT_PADDING }} />;
     } if (!dataLength) {
-      return <FoundNothingView style={{ padding: DEFAULT_PADDING }}/>;
+      return <FoundNothingView style={{ padding: DEFAULT_PADDING }} />;
     }
-    
+
     return null;
   }
 }

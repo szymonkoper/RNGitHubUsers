@@ -1,16 +1,16 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Query } from 'react-apollo';
+import { sortBy } from 'sort-by-chain';
 import RepositoriesFlatList from './Components/RepositoriesFlatList';
 import AdditionalInfoView from '../Components/AdditionalInfoView';
 import Repository from '../../Models/Repository';
 import { fetchRepositories } from '../../actions/repositories';
-import { sortBy } from 'sort-by-chain';
 
 export default class UserDetailScreen extends React.PureComponent {
   render = () => {
     const { props } = this;
-    const login = props.navigation.getParam('login', 'NO-LOGIN')
+    const login = props.navigation.getParam('login', 'NO-LOGIN');
 
     return (
       <Query query={fetchRepositories} variables={{ login }} skip={!login.trim()}>

@@ -32,7 +32,6 @@ export default class HomeScreen extends React.PureComponent {
     return (
       <Query query={fetchUsers} variables={{ name }} skip={!name.trim()}>
         {({ loading, error, data }) => {
-
           let users = [];
           if (!error && !loading && data && data.search && data.search.nodes) {
             users = data.search.nodes
