@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListItem } from 'react-native-elements';
+import Moment from 'moment';
 
 export default class RepositoryListItem extends React.PureComponent {
   render = () => {
@@ -9,7 +10,7 @@ export default class RepositoryListItem extends React.PureComponent {
         key={props.url}
         title={props.name}
         titleProps={{ numberOfLines: 1 }}
-        rightTitle={props.updatedAt}
+        rightTitle={ Moment(props.updatedAt).calendar() }
         rightTitleProps={{ numberOfLines: 2 }}
         subtitle={props.description}
         subtitleProps={{ numberOfLines: 1 }}
