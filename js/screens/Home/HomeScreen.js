@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { sortBy } from 'sort-by-chain';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
-import { fetchUsers } from '../../actions/users';
+import fetchUsers from '../../actions/users';
 import AdditionalInfoView from '../Components/AdditionalInfoView';
 
 export default class HomeScreen extends React.PureComponent {
@@ -48,7 +48,11 @@ export default class HomeScreen extends React.PureComponent {
                 platform={Platform.OS}
                 placeholder="Type Here..."
               />
-              <AdditionalInfoView loading={loading} error={error} dataLength={users.length} />
+              <AdditionalInfoView
+                loading={!!loading}
+                error={!!error}
+                dataNotEmpty={!!users.length}
+              />
               <UsersFlatList data={users} onUserPressed={this.onUserPressed} />
             </ScrollView>
           );

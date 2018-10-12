@@ -5,7 +5,7 @@ import { sortBy } from 'sort-by-chain';
 import RepositoriesFlatList from './Components/RepositoriesFlatList';
 import AdditionalInfoView from '../Components/AdditionalInfoView';
 import Repository from '../../Models/Repository';
-import { fetchRepositories } from '../../actions/repositories';
+import fetchRepositories from '../../actions/repositories';
 
 export default class UserDetailScreen extends React.PureComponent {
   render = () => {
@@ -17,7 +17,9 @@ export default class UserDetailScreen extends React.PureComponent {
         {({ loading, error, data }) => {
           let repositories = [];
 
-          if (!error && !loading && data && data.repositoryOwner && data.repositoryOwner.repositories && data.repositoryOwner.repositories.nodes) {
+          if (!error && !loading && data
+            && data.repositoryOwner && data.repositoryOwner.repositories
+            && data.repositoryOwner.repositories.nodes) {
             repositories = data.repositoryOwner.repositories.nodes
               .map(it => new Repository(it.name, it.url, it.updatedAt, it.description));
 
@@ -26,7 +28,11 @@ export default class UserDetailScreen extends React.PureComponent {
 
           return (
             <ScrollView>
-              <AdditionalInfoView loading={loading} error={error} dataLength={repositories.length} />
+              <AdditionalInfoView
+                loading={!!loading}
+                error={!!error}
+                dataNotEmpty={!!repositories.length}
+              />
               <RepositoriesFlatList data={repositories} />
             </ScrollView>
           );

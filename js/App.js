@@ -6,7 +6,7 @@ import {
 } from 'apollo-boost';
 import HomeScreen from './screens/Home/HomeScreen';
 import UserDetailScreen from './screens/UserDetail/UserDetailScreen';
-import { token } from '../config';
+import token from '../token';
 
 const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
 

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const fetchUsers = gql`
+export default gql`
 query ($name: String!) {
   search(query: $name, type: USER, last: 10) {
     nodes {
