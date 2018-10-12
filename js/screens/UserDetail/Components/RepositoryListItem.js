@@ -12,6 +12,7 @@ export default class RepositoryListItem extends React.PureComponent {
         titleProps={{ numberOfLines: 1 }}
         rightTitle={ Moment(props.updatedAt).calendar() }
         rightTitleProps={{ numberOfLines: 2 }}
+        rightTitleStyle={{ fontSize: 12 }}
         subtitle={props.description}
         subtitleProps={{ numberOfLines: 1 }}
       />

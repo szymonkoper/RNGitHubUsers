@@ -5,6 +5,7 @@ import RepositoriesFlatList from './Components/RepositoriesFlatList';
 import AdditionalInfoView from '../Components/AdditionalInfoView';
 import Repository from '../../Models/Repository';
 import { fetchRepositories } from '../../actions/repositories';
+import { sortBy } from 'sort-by-chain';
 
 export default class UserDetailScreen extends React.PureComponent {
   render = () => {
@@ -19,6 +20,8 @@ export default class UserDetailScreen extends React.PureComponent {
           if (!error && !loading && data && data.repositoryOwner && data.repositoryOwner.repositories && data.repositoryOwner.repositories.nodes) {
             repositories = data.repositoryOwner.repositories.nodes
               .map(it => new Repository(it.name, it.url, it.updatedAt, it.description));
+
+            sortBy(repositories, '-updatedAt', 'name');
           }
 
           return (

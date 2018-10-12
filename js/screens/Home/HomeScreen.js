@@ -3,6 +3,7 @@ import { ScrollView, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { Query } from 'react-apollo';
 import _ from 'lodash';
+import { sortBy } from 'sort-by-chain';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
@@ -36,6 +37,8 @@ export default class HomeScreen extends React.PureComponent {
           if (!error && !loading && data && data.search && data.search.nodes) {
             users = data.search.nodes
               .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+
+            sortBy(users, 'login');
           }
 
           return (
