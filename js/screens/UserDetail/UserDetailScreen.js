@@ -7,11 +7,9 @@ import Repository from '../../Models/Repository';
 import { fetchRepositories } from '../../actions/repositories';
 
 export default class UserDetailScreen extends React.PureComponent {
-  
   render = () => {
     const { props } = this;
     const login = props.navigation.getParam('login', 'NO-LOGIN')
-    console.log(login);
 
     return (
       <Query query={fetchRepositories} variables={{ login }} skip={!login.trim()}>

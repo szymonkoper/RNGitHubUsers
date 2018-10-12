@@ -16,7 +16,9 @@ export default class UserListItem extends React.PureComponent {
           key={props.login}
           leftAvatar={{ source: props.avatarUrl && { uri: props.avatarUrl } }}
           title={props.login}
+          titleProps={{ numberOfLines: 1 }}
           subtitle={props.name}
+          subtitleProps={{ numberOfLines: 1 }}
           badge={{ value: props.totalRepos }}
           chevron
         />

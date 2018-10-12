@@ -1,10 +1,15 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
-//import RepositoryListItem from './RepositoryListItem';
+import { FlatList } from 'react-native';
+import RepositoryListItem from './RepositoryListItem';
 
 export default class RepositoriesFlatList extends React.PureComponent {
   renderItem = ({ item }) => (
-    <Text>{item.url}</Text>
+    <RepositoryListItem
+      name={item.name}
+      url={item.url}
+      updatedAt={item.updatedAt}
+      description={item.description}
+    />
   );
 
   keyExtractor = item => item.url;
