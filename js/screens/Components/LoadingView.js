@@ -7,7 +7,7 @@ export default class LoadingView extends React.PureComponent {
     <View>
       <LottieView
         style={{ width: 200, height: 60, alignSelf: 'center' }}
-        source={require('../../../../Resources/Lottie/loading.json')}
+        source={require('../../../Resources/Lottie/loading.json')}
         autoPlay
         loop
       />

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import UsersFlatList from './Components/UsersFlatList';
 import User from '../../Models/User';
 import { fetchUsers } from '../../actions/users';
-import AdditionalInfoView from './Components/AdditionalInfoView';
+import AdditionalInfoView from '../Components/AdditionalInfoView';
 
 export default class HomeScreen extends React.PureComponent {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class HomeScreen extends React.PureComponent {
         {({ loading, error, data }) => {
 
           let users = [];
-          if (!error && data && data.search && data.search.nodes) {
+          if (!error && !loading && data && data.search && data.search.nodes) {
             users = data.search.nodes
               .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
           }
