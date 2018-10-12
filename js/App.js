@@ -33,14 +33,14 @@ const apolloClient = new ApolloClient({
 const StackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'GitHub Users',
     }),
   },
   UserDetail: {
     screen: UserDetailScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "User's repositories", // TODO: Use something like `${navigation.state.params.name}'s Profile'`
+      title: `${navigation.state.params.login}'s repositories`,
     }),
   },
 }, {
