@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
 query ($name: String!) {
-  search(query: $name, type: USER, last: 100) {
+  search(query: $name, type: USER, last: 20) {
     nodes {
       ... on RepositoryOwner {
         login
