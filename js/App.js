@@ -4,8 +4,8 @@ import { ApolloProvider } from 'react-apollo';
 import {
   ApolloClient, ApolloLink, InMemoryCache, HttpLink,
 } from 'apollo-boost';
-import HomeScreen from './screens/Home/HomeScreen';
-import UserDetailScreen from './screens/UserDetail/UserDetailScreen';
+import HomeScreen from './screens/home/HomeScreen';
+import UserDetailScreen from './screens/user_detail/UserDetailScreen';
 import token from '../token';
 
 const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const animationSource = require('../../../Resources/Lottie/party_penguin.json');
+const animationSource = require('../../../resources/lottie/party_penguin.json');
 
 export default () => (
   <View>

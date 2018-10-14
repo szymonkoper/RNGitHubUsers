@@ -2,9 +2,9 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Query } from 'react-apollo';
 import { sortBy } from 'sort-by-chain';
-import RepositoriesFlatList from './Components/RepositoriesFlatList';
-import AdditionalInfoView from '../Components/AdditionalInfoView';
-import Repository from '../../Models/Repository';
+import RepositoriesFlatList from './components/RepositoriesFlatList';
+import AdditionalInfoView from '../components/AdditionalInfoView';
+import Repository from '../../models/Repository';
 import fetchRepositories from '../../actions/repositories';
 
 export default class UserDetailScreen extends React.PureComponent {

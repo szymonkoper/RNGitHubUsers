@@ -4,10 +4,10 @@ import { SearchBar } from 'react-native-elements';
 import { Query } from 'react-apollo';
 import _ from 'lodash';
 import { sortBy } from 'sort-by-chain';
-import UsersFlatList from './Components/UsersFlatList';
-import User from '../../Models/User';
+import UsersFlatList from './components/UsersFlatList';
+import User from '../../models/User';
 import fetchUsers from '../../actions/users';
-import AdditionalInfoView from '../Components/AdditionalInfoView';
+import AdditionalInfoView from '../components/AdditionalInfoView';
 
 export default class HomeScreen extends React.PureComponent {
   constructor(props) {
