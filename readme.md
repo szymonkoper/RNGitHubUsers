@@ -17,13 +17,13 @@ Informations are presented in two screens.
 
 ## Users screen
 
-![asd](resources/screenshots/and_users.jpg "Android, users screen")
-![asd](resources/screenshots/ios_users.jpg "Android, users screen")
+![AndroidUsers](resources/screenshots/and_users.jpg "Android, users screen")
+![iOSUsers](resources/screenshots/ios_users.jpg "iOS, users screen")
 
 ## Repos screen
 
-![asd](resources/screenshots/and_repos.jpg "Android, users screen")
-![asd](resources/screenshots/ios_repos.jpg "Android, users screen")
+![AndroidRepos](resources/screenshots/and_repos.jpg "Android, repos screen")
+![iOSRepos](resources/screenshots/ios_repos.jpg "iOS, repos screen")
 
 
 # Before you start
@@ -38,8 +38,9 @@ Informations are presented in two screens.
 
 # What is missing
 
- - testing,
- - pagination.
+ - example of persistent storage usage,
+ - usage of `redux` with `redux-thunk` middleware for async calls,
+ - pagination of query results,
 
 
 # Packages used
@@ -54,6 +55,8 @@ Package  | Description
 [react-navigation](https://reactnavigation.org) | in-app routing and navigation
 [react-native-elements](https://react-native-training.github.io/react-native-elements/) | UI components (`SearchBar`, `ListItem`)
 [moment](https://momentjs.com) | js tool for dates and times
+[mocha](https://mochajs.org) | unit test framework
+[detox](https://github.com/wix/Detox) | gray-box UI test and automation framework
 [eslint](https://eslint.org) | linter with ES6 and JSX support
 [babel](https://babeljs.io) | ES6 transpiler
 
