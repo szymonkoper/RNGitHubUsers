@@ -41,7 +41,7 @@ export default class HomeScreen extends React.PureComponent {
           }
 
           return (
-            <ScrollView>
+            <ScrollView testID={'UsersList'}>
               <SearchBar
                 testID={'SearchBar'}
                 text={name}
