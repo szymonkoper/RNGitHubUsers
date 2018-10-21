@@ -11,7 +11,7 @@ export default class UserListItem extends React.PureComponent {
   render = () => {
     const { props } = this;
     return (
-      <TouchableOpacity testID={'UserListItem'} onPress={this.onPress}>
+      <TouchableOpacity testID="UserListItem" onPress={this.onPress}>
         <ListItem
           key={props.login}
           leftAvatar={{ source: props.avatarUrl && { uri: props.avatarUrl } }}

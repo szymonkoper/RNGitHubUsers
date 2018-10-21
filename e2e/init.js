@@ -1,19 +1,22 @@
-const detox = require('detox');
-const config = require('../package.json').detox;
-const adapter = require('detox/runners/mocha/adapter');
+/* eslint-env detox/detox, mocha */
+/* eslint func-names: ["error", "never"] */
+
+import { init, cleanup } from 'detox';
+import { beforeEach as _beforeEach, afterEach as _afterEach } from 'detox/runners/mocha/adapter';
+import { detox as config } from '../package.json';
 
 before(async () => {
-  await detox.init(config);
+  await init(config);
 });
 
 beforeEach(async function () {
-  await adapter.beforeEach(this);
+  await _beforeEach(this);
 });
 
 afterEach(async function () {
-  await adapter.afterEach(this);
+  await _afterEach(this);
 });
 
 after(async () => {
-  await detox.cleanup();
+  await cleanup();
 });

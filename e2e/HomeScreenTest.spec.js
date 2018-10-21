@@ -1,3 +1,5 @@
+/* eslint-env detox/detox, mocha */
+
 describe('Users list', () => {
   beforeEach(async () => {
     await device.reloadReactNative();
@@ -30,4 +32,4 @@ describe('Users list', () => {
     await element(by.id('UsersList')).scrollTo('bottom');
     await expect(element(by.id('UserListItem')).atIndex(0)).toBeVisible();
   });
-})
+});
