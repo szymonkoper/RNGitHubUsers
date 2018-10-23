@@ -38,8 +38,8 @@ Informations are presented in two screens.
 
 # What is missing
 
- - example of persistent storage usage,
- - usage of `redux` with `redux-thunk` middleware for async calls,
+ - persistent storage usage,
+ - **Flow** or **TypeScript** usage,
  - pagination of query results,
 
 
@@ -48,6 +48,7 @@ Informations are presented in two screens.
 Package  | Description
 -------------: | :-------------
 [sort-by-chain](http://npmjs.com/package/sort-by-chain) | simple package for sorting, created by me
+[redux](https://redux.js.org) | predictable state container
 [lottie](https://airbnb.design/lottie/) | animations for presenting empty list, loading and error
 [react-apollo](https://github.com/apollographql/react-apollo) | GraphQL client library for React
 [lodash](https://lodash.com) | library with lots of tools, from which I used `debounce` for data fetching

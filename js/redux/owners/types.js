@@ -1,0 +1,3 @@
+export const OWNERS_LOADING = 'OWNERS_LOADING';
+export const OWNERS_SHOW = 'OWNERS_SHOW';
+export const OWNERS_ERROR = 'OWNERS_ERROR';

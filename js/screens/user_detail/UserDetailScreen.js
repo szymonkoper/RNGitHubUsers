@@ -1,43 +1,45 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
-import { Query } from 'react-apollo';
-import { sortBy } from 'sort-by-chain';
 import RepositoriesFlatList from './components/RepositoriesFlatList';
 import AdditionalInfoView from '../components/AdditionalInfoView';
-import Repository from '../../models/Repository';
-import fetchRepositories from '../../actions/repositories';
+import { getRepositories } from '../../redux/repositories/actions';
 
-export default class UserDetailScreen extends React.PureComponent {
+class UserDetailScreen extends React.PureComponent {
+  componentDidMount() {
+    const { props } = this;
+    const ownerLogin = props.navigation.getParam('ownerLogin', '');
+    this.updateRepositoriesList(ownerLogin);
+  }
+
+  updateRepositoriesList = (ownerLogin) => {
+    const { props } = this;
+    props.getRepositories(ownerLogin);
+  }
+
   render = () => {
     const { props } = this;
-    const login = props.navigation.getParam('login', 'NO-LOGIN');
 
     return (
-      <Query query={fetchRepositories} variables={{ login }} skip={!login.trim()}>
-        {({ loading, error, data }) => {
-          let repositories = [];
-
-          if (!error && !loading && data
-            && data.repositoryOwner && data.repositoryOwner.repositories
-            && data.repositoryOwner.repositories.nodes) {
-            repositories = data.repositoryOwner.repositories.nodes
-              .map(it => new Repository(it.name, it.url, it.updatedAt, it.description));
-
-            sortBy(repositories, '-updatedAt', 'name');
-          }
-
-          return (
-            <ScrollView>
-              <AdditionalInfoView
-                loading={!!loading}
-                error={!!error}
-                dataNotEmpty={!!repositories.length}
-              />
-              <RepositoriesFlatList data={repositories} />
-            </ScrollView>
-          );
-        }}
-      </Query>
+      <ScrollView>
+        <AdditionalInfoView
+          loading={!!props.loading}
+          error={!!props.error}
+          dataNotEmpty={!!props.repositories.length}
+        />
+        <RepositoriesFlatList data={props.repositories} />
+      </ScrollView>
     );
   }
 }
+
+const mapStateToProps = ({ repositoriesScreen }) => ({
+  repositories: repositoriesScreen.repositories,
+  loading: repositoriesScreen.loading,
+  error: repositoriesScreen.error,
+});
+
+const mapDispatchToProps = { getRepositories };
+
+const UserDetailScreenContainer = connect(mapStateToProps, mapDispatchToProps)(UserDetailScreen);
+export default UserDetailScreenContainer;

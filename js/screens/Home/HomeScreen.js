@@ -1,64 +1,69 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ScrollView, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { Query } from 'react-apollo';
 import _ from 'lodash';
-import { sortBy } from 'sort-by-chain';
 import UsersFlatList from './components/UsersFlatList';
-import User from '../../models/User';
-import fetchUsers from '../../actions/users';
 import AdditionalInfoView from '../components/AdditionalInfoView';
+import { getOwners } from '../../redux/owners/actions';
 
-export default class HomeScreen extends React.PureComponent {
+class HomeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { name: '' };
+    this.state = { searchText: '' };
   }
 
-  onUserPressed = (login) => {
+  componentDidMount() {
+    this.updateOwnersList();
+  }
+
+  onUserPressed = (ownerLogin) => {
     const { props } = this;
-    props.navigation.navigate('UserDetail', { login });
+    props.navigation.navigate('UserDetail', { ownerLogin });
   }
 
-  onSearchText = (text) => {
-    this.setState({ name: text });
+  onSearchText = (searchText) => {
+    this.setState({ searchText });
+    this.updateOwnersList();
   }
 
   onSearchTextDebounced = _.debounce(this.onSearchText, 500);
 
+  updateOwnersList = () => {
+    const { state, props } = this;
+    props.getOwners(state.searchText);
+  }
+
   render = () => {
-    const { name } = this.state;
+    const { props, state } = this;
 
     return (
-      <Query query={fetchUsers} variables={{ name }} skip={!name.trim()}>
-        {({ loading, error, data }) => {
-          let users = [];
-          if (!error && !loading && data && data.search && data.search.nodes) {
-            users = data.search.nodes
-              .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
-
-            sortBy(users, 'login');
-          }
-
-          return (
-            <ScrollView testID="UsersList">
-              <SearchBar
-                testID="SearchBar"
-                text={name}
-                onChangeText={this.onSearchTextDebounced}
-                platform={Platform.OS}
-                placeholder="Type Here..."
-              />
-              <AdditionalInfoView
-                loading={!!loading}
-                error={!!error}
-                dataNotEmpty={!!users.length}
-              />
-              <UsersFlatList data={users} onUserPressed={this.onUserPressed} />
-            </ScrollView>
-          );
-        }}
-      </Query>
+      <ScrollView testID="UsersList">
+        <SearchBar
+          testID="SearchBar"
+          text={state.searchText}
+          onChangeText={this.onSearchTextDebounced}
+          platform={Platform.OS}
+          placeholder="Type Here..."
+        />
+        <AdditionalInfoView
+          loading={!!props.loading}
+          error={!!props.error}
+          dataNotEmpty={!!props.owners.length}
+        />
+        <UsersFlatList data={props.owners} onUserPressed={this.onUserPressed} />
+      </ScrollView>
     );
   };
 }
+
+const mapStateToProps = ({ ownersScreen }) => ({
+  owners: ownersScreen.owners,
+  loading: ownersScreen.loading,
+  error: ownersScreen.error,
+});
+
+const mapDispatchToProps = { getOwners };
+
+const HomeScreenContainer = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreenContainer;
