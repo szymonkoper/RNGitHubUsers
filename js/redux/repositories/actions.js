@@ -12,7 +12,7 @@ export const showRepositories = repositories => ({
 });
 
 export const showRepositoriesError = error => ({
-  type: types.OWNERS_ERROR,
+  type: types.REPOSITORIES_ERROR,
   error,
 });
 
