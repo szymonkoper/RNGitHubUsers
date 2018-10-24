@@ -4,7 +4,7 @@
 
 
 An example project implemented in **React Native**.
-It uses following tools: **redux**, **lottie**, **mocha**, **detox** and other.
+It uses mostly: **redux**, **lottie**, **mocha**, **detox**, **GraphQL** and other...
 
 In the app you can look for GitHub users and list their repositories.
 Informations are presented in two screens.
