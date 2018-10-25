@@ -1,6 +1,6 @@
 /* eslint-env detox/detox, mocha */
 
-describe('Users list', () => {
+describe('Owners list', () => {
   beforeEach(async () => {
     await device.reloadReactNative();
   });
@@ -29,7 +29,7 @@ describe('Users list', () => {
     await searchBar.typeText('google');
     await element(by.text('Cancel')).tap();
 
-    await element(by.id('UsersList')).scrollTo('bottom');
-    await expect(element(by.id('UserListItem')).atIndex(0)).toBeVisible();
+    await element(by.id('OwnersList')).scrollTo('bottom');
+    await expect(element(by.id('OwnerListItem')).atIndex(0)).toBeVisible();
   });
 });

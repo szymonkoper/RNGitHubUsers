@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ScrollView, Platform } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
-import UsersFlatList from './components/UsersFlatList';
+import OwnersFlatList from './components/OwnersFlatList';
 import AdditionalInfoView from '../components/AdditionalInfoView';
 import { getOwners } from '../../redux/owners/actions';
 
@@ -17,9 +17,9 @@ class HomeScreen extends React.PureComponent {
     this.updateOwnersList();
   }
 
-  onUserPressed = (ownerLogin) => {
+  onOwnerPressed = (ownerLogin) => {
     const { props } = this;
-    props.navigation.navigate('UserDetail', { ownerLogin });
+    props.navigation.navigate('OwnerDetail', { ownerLogin });
   }
 
   onSearchText = (searchText) => {
@@ -38,7 +38,7 @@ class HomeScreen extends React.PureComponent {
     const { props, state } = this;
 
     return (
-      <ScrollView testID="UsersList">
+      <ScrollView testID="OwnersList">
         <SearchBar
           testID="SearchBar"
           text={state.searchText}
@@ -51,7 +51,7 @@ class HomeScreen extends React.PureComponent {
           error={!!props.error}
           dataNotEmpty={!!props.owners.length}
         />
-        <UsersFlatList data={props.owners} onUserPressed={this.onUserPressed} />
+        <OwnersFlatList data={props.owners} onOwnerPressed={this.onOwnerPressed} />
       </ScrollView>
     );
   };

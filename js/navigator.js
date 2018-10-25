@@ -1,16 +1,16 @@
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './screens/home/HomeScreen';
-import UserDetailScreen from './screens/user_detail/UserDetailScreen';
+import OwnerDetailScreen from './screens/owner_detail/OwnerDetailScreen';
 
 export default createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: () => ({
-      title: 'GitHub Users',
+      title: 'GitHub Owners',
     }),
   },
-  UserDetail: {
-    screen: UserDetailScreen,
+  OwnerDetail: {
+    screen: OwnerDetailScreen,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.ownerLogin}'s repositories`,
     }),

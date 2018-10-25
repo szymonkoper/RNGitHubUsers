@@ -16,9 +16,9 @@ Informations are presented in two screens.
 
 ![AnimationiOS](resources/screenshots/s_ios_v.gif "iOS animation")
 
-## Users screen
+## Owners screen
 
-![AndroidUsers](resources/screenshots/and_users.jpg "Android, users screen")
+![AndroidOwner](resources/screenshots/and_users.jpg "Android, users screen")
 ![iOSUsers](resources/screenshots/ios_users.jpg "iOS, users screen")
 
 ## Repos screen

@@ -5,7 +5,7 @@ import RepositoriesFlatList from './components/RepositoriesFlatList';
 import AdditionalInfoView from '../components/AdditionalInfoView';
 import { getRepositories } from '../../redux/repositories/actions';
 
-class UserDetailScreen extends React.PureComponent {
+class OwnerDetailScreen extends React.PureComponent {
   componentDidMount() {
     const { props } = this;
     const ownerLogin = props.navigation.getParam('ownerLogin', '');
@@ -41,5 +41,5 @@ const mapStateToProps = ({ repositoriesScreen }) => ({
 
 const mapDispatchToProps = { getRepositories };
 
-const UserDetailScreenContainer = connect(mapStateToProps, mapDispatchToProps)(UserDetailScreen);
-export default UserDetailScreenContainer;
+const OwnerDetailScreenContainer = connect(mapStateToProps, mapDispatchToProps)(OwnerDetailScreen);
+export default OwnerDetailScreenContainer;

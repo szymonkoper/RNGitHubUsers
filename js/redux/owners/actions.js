@@ -2,7 +2,7 @@ import { sortBy } from 'sort-by-chain';
 import client from '../../api/client';
 import { ownersQuery } from '../../api/queries';
 import * as types from './types';
-import User from '../../models/User';
+import Owner from '../../models/Owner';
 
 export const loadingOwners = () => ({ type: types.OWNERS_LOADING });
 
@@ -18,7 +18,7 @@ export const showOwnersError = error => ({
 
 const ownersFromData = (data) => {
   const owners = data.search.nodes
-    .map(it => new User(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
+    .map(it => new Owner(it.login, it.name, it.avatarUrl, it.repositories.totalCount));
 
   sortBy(owners, 'login');
   return owners;

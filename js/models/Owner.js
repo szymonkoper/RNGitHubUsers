@@ -1,4 +1,4 @@
-export default class User {
+export default class Owner {
   constructor(login, name, avatarUrl, totalRepos) {
     this.login = login;
     this.name = name;

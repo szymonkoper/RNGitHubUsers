@@ -1,15 +1,15 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import UserListItem from './UserListItem';
+import OwnerListItem from './OwnerListItem';
 
-export default class UsersFlatList extends React.PureComponent {
+export default class OwnersFlatList extends React.PureComponent {
   onPress = (login) => {
     const { props } = this;
-    props.onUserPressed(login);
+    props.onOwnerPressed(login);
   }
 
   renderItem = ({ item }) => (
-    <UserListItem
+    <OwnerListItem
       login={item.login}
       name={item.name}
       totalRepos={item.totalRepos}
